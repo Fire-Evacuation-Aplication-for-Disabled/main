@@ -1,4 +1,4 @@
-import 'package:fire_evacuation_assistance_for_disabled/Screens/login.dart';
+import 'package:fire_evacuation_assistance_for_disabled/screens/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
