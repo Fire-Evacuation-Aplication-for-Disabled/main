@@ -1,3 +1,15 @@
+// ******************************************************
+// *
+// *             파일명 : blueprint.dart
+// *
+// *             작성자 : 
+// *
+// *             마지막 수정일 : 2024
+// *
+// *             파일 내용 : 
+// *
+// ******************************************************
+
 import 'package:flutter/material.dart';
 
 class BlueprintScreen extends StatelessWidget {
