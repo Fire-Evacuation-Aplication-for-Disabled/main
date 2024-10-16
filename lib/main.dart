@@ -2,7 +2,9 @@ import 'package:fire_evacuation_assistance_for_disabled/screens/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,6 +12,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    return const LoginScreen();
   }
 }
