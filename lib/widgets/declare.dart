@@ -2,11 +2,11 @@
 // *
 // *             파일명 : declare.dart
 // *
-// *             작성자 : 
+// *             작성자 : 임준용
 // *
-// *             마지막 수정일 : 2024
+// *             마지막 수정일 : 2024.10.16
 // *
-// *             파일 내용 : 
+// *             파일 내용 : 119 신고 혹은 메뉴얼 선택 화면
 // *
 // ******************************************************
 
@@ -19,28 +19,33 @@ class DeclareScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        appBar: AppBar(
+          leading: IconButton(onPressed: () {
+                    Navigator.pop(context);
+                  }, icon: const Icon(Icons.arrow_back)),
+        ),
+        body: const Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
+            Center(
               child: Text(
-                'Declare Screen',
+                'Declare',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            
             Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text('back'),),
+              child: Text(
+                'Manual',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                ),
+              ),
             ),
           ],
         ),
