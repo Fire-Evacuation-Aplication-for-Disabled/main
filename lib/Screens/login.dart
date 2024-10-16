@@ -4,11 +4,13 @@
 // *
 // *             작성자 : 임준용
 // *
-// *             마지막 수정일 : 2024.10.06
+// *             마지막 수정일 : 2024.10.16
 // *
 // *             파일 내용 : 어플리케이션 '대피닷'의 login screen 개발
 // *
 // ******************************************************************
+
+// 비율은 Medium Phone 사이즈에 맞추었고, 추후에 반응형으로 만들 예정
 
 // TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결, 비율(디자인) 관리(sized box 삭제)
 
@@ -77,10 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 66,
+                  height: 60,
                 ),
 
-                // 아이콘 컨테이너
+                // 아이콘
                 Center(
                   child: Container(
                     decoration: const BoxDecoration(
@@ -97,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 66,
+                  height: 50,
                 ),
 
                 // id 입력 받는 inputBox
@@ -154,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 36,
                 ),
 
                 // 장애 유형 선택 버튼
@@ -178,14 +180,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             const BorderRadius.all(Radius.circular(14)),
                         borderColor: Colors.white,
                         textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w400),
+                            fontSize: 18, fontWeight: FontWeight.w400),
                         selectedBorderColor: Colors.red[700],
                         selectedColor: Colors.white,
                         fillColor: const Color.fromARGB(139, 255, 67, 67),
                         color: Colors.red[400],
                         constraints: const BoxConstraints(
-                          minHeight: 60.0,
-                          minWidth: 120.0,
+                          minHeight: 55.0,
+                          minWidth: 115.0,
                         ),
                         isSelected: _selectedDisableType,
                         children: disableType,
@@ -199,45 +201,51 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
 
                 // 로그인 버튼 추후 pushAndRemoveUntil로 변경?
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_selectedDisableType[0] == true) {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DeclareScreen(),
+                            ),
+                          );
+                          }
+                          else if (_selectedDisableType[1] == true) {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ManualScreen(),
+                            ),
+                          );
+                          }
+                          else if (_selectedDisableType[2] == true) {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BlueprintScreen(),
+                            ),
+                          );
+                          }
+                        },
+                        child: const Text(
+                          '로그인',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    if (_selectedDisableType[0] == true) {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DeclareScreen(),
-                      ),
-                    );
-                    }
-                    else if (_selectedDisableType[1] == true) {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ManualScreen(),
-                      ),
-                    );
-                    }
-                    else if (_selectedDisableType[2] == true) {
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BlueprintScreen(),
-                      ),
-                    );
-                    }
-                  },
-                  child: const Text(
-                    '로그인',
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
