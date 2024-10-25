@@ -20,7 +20,7 @@ import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 
 // 토글 버튼 텍스트
-const List<Widget> disableType = <Widget>[Text('Declare'), Text('Manual'), Text('Blueprint')];
+const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Text('관리자')];
 
 // login screen (어플리케이션 이름 및 아이콘 출력 / id, pw와 장애 유형을 선택받고 해당하는 다음 화면으로 라우팅)
 class LoginScreen extends StatefulWidget {
@@ -227,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ManualScreen(),
+                              builder: (context) => const DeclareScreen(),
                             ),
                           );
                           }
