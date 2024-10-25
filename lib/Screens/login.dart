@@ -4,19 +4,20 @@
 // *
 // *             작성자 : 임준용
 // *
-// *             마지막 수정일 : 2024.10.16
+// *             마지막 수정일 : 2024.10.25
 // *
 // *             파일 내용 : 어플리케이션 '대피닷'의 login screen 개발
 // *
-// ******************************************************************
+// *             작업 환경 : Window / VS Code
+// *
+// *             사용 언어 및 프레임워크 : dart / flutter
+// *
+// ******************************************************
 
-// 비율은 Medium Phone 사이즈에 맞추었고, 추후에 반응형으로 만들 예정
-
-// TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결, 비율(디자인) 관리(sized box 삭제)
+// TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결
 
 import 'package:flutter/material.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
-import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 
 // 토글 버튼 텍스트

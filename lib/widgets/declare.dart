@@ -4,7 +4,7 @@
 // *
 // *             작성자 : 임준용
 // *
-// *             마지막 수정일 : 2024.10.16
+// *             마지막 수정일 : 2024.10.25
 // *
 // *             파일 내용 : 119 신고 혹은 메뉴얼 선택 화면
 // *
@@ -27,6 +27,7 @@ class DeclareScreen extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
+        // appBar로 뒤로 이동할 수 있는 back_arrow 생성, 필요 없으므로 삭제 예정
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -38,6 +39,7 @@ class DeclareScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // 터치 시 Declare (신고) 후 다음 화면(blueprint)로 이동
             InkWell(
               onTap: (){
                 Navigator.push(
@@ -58,6 +60,7 @@ class DeclareScreen extends StatelessWidget {
                 ),
               ),
             ),
+            // 터치 시 Manual화면으로 이동
             InkWell(
               onTap: (){
                 Navigator.push(
