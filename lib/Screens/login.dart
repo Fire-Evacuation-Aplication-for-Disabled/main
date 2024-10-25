@@ -40,6 +40,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final Size size = MediaQuery.of(context).size;
+    
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color.fromARGB(226, 0, 0, 0),
@@ -47,11 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
         // 스크롤 활성화 -> 키보드 overflow 개선 위함
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 30,
-              right: 30,
-              top: 77,
-              bottom: 40,
+            padding: EdgeInsets.only(
+              left: size.width * 0.07292,
+              right: size.width * 0.07292,
+              top: size.height * 0.08422,
+              bottom: size.height * 0.04375,
             ),
             child: Column(
               children: [
@@ -78,8 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 60,
+                SizedBox(
+                  height: size.height * 0.06563,
                 ),
 
                 // 아이콘
@@ -89,17 +92,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: BoxShape.circle,
                       color: Color.fromARGB(235, 255, 255, 255),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(50.0),
-                      child: Icon(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: size.width * 0.12153, vertical: size.height * 0.05469),
+                      child: const Icon(
                         Icons.accessible,
                         size: 150,
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: size.height * 0.054688
                 ),
 
                 // id 입력 받는 inputBox
@@ -107,18 +110,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: TextField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Username',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 10),
+                              vertical: size.height * 0.02188, horizontal: size.width * 0.02431),
                         ),
                         keyboardType: TextInputType.text,
                         controller: idController,
@@ -126,8 +129,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: size.height * 0.02188,
                 ),
 
                 // pw 입력 받는 inputBox
@@ -135,18 +138,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Expanded(
                       child: TextField(
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'Password',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
                           ),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           filled: true,
                           fillColor: Colors.white,
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 10),
+                              vertical: size.height * 0.02188, horizontal: size.width * 0.02431),
                         ),
                         keyboardType: TextInputType.text,
                         controller: pwController,
@@ -155,8 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 36,
+                SizedBox(
+                  height: size.height * 0.03938,
                 ),
 
                 // 장애 유형 선택 버튼
@@ -185,9 +188,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         selectedColor: Colors.white,
                         fillColor: const Color.fromARGB(139, 255, 67, 67),
                         color: Colors.red[400],
-                        constraints: const BoxConstraints(
-                          minHeight: 55.0,
-                          minWidth: 115.0,
+                        constraints: BoxConstraints(
+                          minHeight: size.height * 0.06015,
+                          minWidth: size.width * 0.27951,
                         ),
                         isSelected: _selectedDisableType,
                         children: disableType,
@@ -196,8 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
 
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: size.height * 0.03281,
                 ),
 
                 // 로그인 버튼 추후 pushAndRemoveUntil로 변경?
