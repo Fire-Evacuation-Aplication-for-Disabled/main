@@ -53,79 +53,101 @@ class ManualScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Container(
-          margin: const EdgeInsets.all(0),
-          color: const Color.fromARGB(255, 0, 0, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(20) 
-                  ),
-              ),
-              const Center(
-                child: Text(
-                  "화재 대피 메뉴얼 ",
-                  style: TextStyle(
+        backgroundColor:const Color.fromARGB(226, 0, 0, 0),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(            
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                TextButton(
+                  onPressed: (){}, 
+                  child: const Text(
+                    "<-Declare",
+                    style: TextStyle(
                     color: Color.fromARGB(218, 255, 0, 0),
-                    fontSize: 40, 
-                    fontWeight: FontWeight.bold
-                    ),
-                ),
-              ),
-              Container(
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                  margin: const EdgeInsets.only(top: 20),
-                  child: ListView.builder(
-                      itemCount: manualList.length,
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                            margin: const EdgeInsets.only(top: 20),
-                            color: const Color.fromARGB(255, 44, 44, 44),
-                            width: 400,
-                            height: 200,
-                            padding: const EdgeInsets.all(20), //이미지와 컨테이너 사이 여백 
-                            child: Row(
-                              children: [
-                                Image.asset('assets/images/testimage.png'),
-                                Expanded(
-                                  child: Container(
-                                    color: const Color.fromARGB(255, 255, 255, 255),
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.only(top:0),
-                                          child: Text(
-                                            manualList[index].titleNum,
-                                            style: const TextStyle(
-                                                fontSize: 27,
-                                                color: Color.fromARGB(255, 0, 0, 0),
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.only(top: 10, left:30),
-                                          child: Text(
-                                            manualList[index].manual,
-                                            style: const TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ));
-                      })),
+                    fontSize: 15))),             
+             TextButton(
+             onPressed: (){}, 
+             child: const Text(
+               "대피안내도->",
+               style: TextStyle(
+                color: Color.fromARGB(218, 255, 0, 0),
+                fontSize: 15))),
             ],
           ),
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(1) 
+                ),
+            ),
+            const Center(
+              child: Text(
+                "화재 대피 메뉴얼 ",
+                style: TextStyle(
+                  color: Color.fromARGB(218, 255, 62, 62),
+                  fontSize: 45, 
+                  fontWeight: FontWeight.bold
+                  ),
+              ),
+            ),
+            Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: const Color.fromARGB(255, 44, 44, 44)),
+                margin: const EdgeInsets.all(12),
+                child: ListView.builder(
+                    itemCount: manualList.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          margin: const EdgeInsets.all(5),
+                          width: 400,
+                          height: 150,
+                          padding: const EdgeInsets.all(5), //이미지와 컨테이너 사이 여백 
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5),topLeft:  Radius.circular(5)),
+                                child: Image.asset('assets/images/testimage.png')
+                                ),
+                              Expanded(
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(5),topRight:  Radius.circular(5)),
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(top:0),
+                                        child: Text(
+                                          manualList[index].titleNum,
+                                          style: const TextStyle(
+                                              fontSize: 27,
+                                              color: Color.fromARGB(255, 0, 0, 0),
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 0, left:15),
+                                        child: Text(
+                                          manualList[index].manual,
+                                          style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ));
+                    })),
+          ],
         )
       ),
     );
