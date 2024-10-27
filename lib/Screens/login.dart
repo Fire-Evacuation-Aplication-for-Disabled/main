@@ -224,19 +224,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                           }
                           else if (_selectedDisableType[1] == true) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const ManualScreen(),
                             ),
+                            (route) => false,
                           );
                           }
                           else if (_selectedDisableType[2] == true) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const BlueprintScreen(),
                             ),
+                            (route) => false,
                           );
                           }
                         },

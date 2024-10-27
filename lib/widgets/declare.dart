@@ -17,14 +17,9 @@ class DeclareScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(onPressed: () {
-                    Navigator.pop(context);
-                  }, icon: const Icon(Icons.arrow_back)),
-        ),
-        body: const Column(
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
