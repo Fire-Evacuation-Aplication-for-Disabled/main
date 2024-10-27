@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "160878176419",
+    "project_id": "fire-evacuation-for-disable",
+    "storage_bucket": "fire-evacuation-for-disable.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160878176419:android:72edf6897e1a858a0ff716",
+        "android_client_info": {
+          "package_name": "com.example.fire_evacuation_assistance_for_disabled"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxAfoLnpTaryS9c87fYWY3MR9Gb3qxbjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

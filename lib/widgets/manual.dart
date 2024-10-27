@@ -54,7 +54,7 @@ class ManualScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          margin: EdgeInsets.all(0),
+          margin: const EdgeInsets.all(0),
           color: const Color.fromARGB(255, 0, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,43 +76,43 @@ class ManualScreen extends StatelessWidget {
               ),
               Container(
                   color: const Color.fromARGB(255, 0, 0, 0),
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: ListView.builder(
                       itemCount: manualList.length,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                            margin: EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 20),
                             color: const Color.fromARGB(255, 44, 44, 44),
                             width: 400,
                             height: 200,
-                            padding: EdgeInsets.all(20), //이미지와 컨테이너 사이 여백 
+                            padding: const EdgeInsets.all(20), //이미지와 컨테이너 사이 여백 
                             child: Row(
                               children: [
                                 Image.asset('assets/images/testimage.png'),
                                 Expanded(
                                   child: Container(
                                     color: const Color.fromARGB(255, 255, 255, 255),
-                                    padding: EdgeInsets.all(20),
+                                    padding: const EdgeInsets.all(20),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          margin: EdgeInsets.only(top:0),
+                                          margin: const EdgeInsets.only(top:0),
                                           child: Text(
                                             manualList[index].titleNum,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 27,
-                                                color: const Color.fromARGB(255, 0, 0, 0),
+                                                color: Color.fromARGB(255, 0, 0, 0),
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(top: 10, left:30),
+                                          margin: const EdgeInsets.only(top: 10, left:30),
                                           child: Text(
                                             manualList[index].manual,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold),
                                           ),

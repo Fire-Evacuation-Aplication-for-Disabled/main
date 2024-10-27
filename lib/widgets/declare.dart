@@ -27,7 +27,6 @@ class DeclareScreen extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        // appBar로 뒤로 이동할 수 있는 back_arrow 생성, 필요 없으므로 삭제 예정
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
