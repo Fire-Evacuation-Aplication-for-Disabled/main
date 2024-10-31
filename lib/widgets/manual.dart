@@ -10,9 +10,6 @@
 // *
 // ******************************************************
 
-// 주석이나 코드들은 얼마든지 바꿔도 됨 전부 밀어버리고 자기 스타일대로 하세요
-// 그냥 제가 작업하면서 보려고 만든거에요
-
 import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart'; // imageurl 을 이용하기 위한 package
 
@@ -62,13 +59,13 @@ class ManualScreen extends StatelessWidget {
                       onPressed: () {},
                       child: Text("<-Declare",
                           style: TextStyle(
-                              color: Color.fromARGB(218, 255, 0, 0),
+                              color: const Color.fromARGB(218, 255, 0, 0),
                               fontSize: 30* widthRatio))),
                   TextButton(
                       onPressed: () {},
                       child: Text("대피안내도->",
                           style: TextStyle(
-                              color: Color.fromARGB(218, 255, 0, 0),
+                              color: const Color.fromARGB(218, 255, 0, 0),
                               fontSize: 30* widthRatio))),
                 ],
               ),
