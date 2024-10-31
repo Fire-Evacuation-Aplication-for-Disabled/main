@@ -59,32 +59,28 @@ class ManualScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    child: TextButton(
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DeclareScreen(),
-                            ),
-                );},
-                        child: Text("<-Declare",
-                            style: TextStyle(
-                                color: const Color.fromARGB(218, 255, 0, 0),
-                                fontSize: 30* widthRatio))),
-                  ),
-                  InkWell(
-                    child: TextButton(
-                        onPressed: () {Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const BlueprintScreen(),
-                            ),
-                );},
-                        child: Text("대피안내도->",
-                            style: TextStyle(
-                                color: const Color.fromARGB(218, 255, 0, 0),
-                                fontSize: 30* widthRatio))),
-                  ),
+                  TextButton(
+                      onPressed: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DeclareScreen(),
+                          ),
+                                  );},
+                      child: Text("<-Declare",
+                          style: TextStyle(
+                              color: const Color.fromARGB(218, 255, 0, 0),
+                              fontSize: 30* widthRatio))),
+                  TextButton(
+                      onPressed: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BlueprintScreen(),
+                          ),
+                                  );},
+                      child: Text("대피안내도->",
+                          style: TextStyle(
+                              color: const Color.fromARGB(218, 255, 0, 0),
+                              fontSize: 30* widthRatio))),
                 ],
               ),
               const Center(
