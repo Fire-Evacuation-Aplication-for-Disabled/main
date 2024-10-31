@@ -10,6 +10,8 @@
 // *
 // ******************************************************
 
+import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
+import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart'; // imageurl 을 이용하기 위한 package
 
@@ -39,7 +41,9 @@ class ManualScreen extends StatelessWidget {
   const ManualScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size; //반응형을 위해 추가.
+    //사용자의 디바이스 크기 반영을 위한 변수
+    Size screenSize = MediaQuery.of(context).size; 
+
     double screenWidth = screenSize.width;
     double screenHeight = screenSize.height;
 
@@ -55,18 +59,32 @@ class ManualScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("<-Declare",
-                          style: TextStyle(
-                              color: const Color.fromARGB(218, 255, 0, 0),
-                              fontSize: 30* widthRatio))),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("대피안내도->",
-                          style: TextStyle(
-                              color: const Color.fromARGB(218, 255, 0, 0),
-                              fontSize: 30* widthRatio))),
+                  InkWell(
+                    child: TextButton(
+                        onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const DeclareScreen(),
+                            ),
+                );},
+                        child: Text("<-Declare",
+                            style: TextStyle(
+                                color: const Color.fromARGB(218, 255, 0, 0),
+                                fontSize: 30* widthRatio))),
+                  ),
+                  InkWell(
+                    child: TextButton(
+                        onPressed: () {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BlueprintScreen(),
+                            ),
+                );},
+                        child: Text("대피안내도->",
+                            style: TextStyle(
+                                color: const Color.fromARGB(218, 255, 0, 0),
+                                fontSize: 30* widthRatio))),
+                  ),
                 ],
               ),
               const Center(
