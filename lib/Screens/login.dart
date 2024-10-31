@@ -16,9 +16,9 @@
 
 // TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결
 
+import 'package:fire_evacuation_assistance_for_disabled/Screens/admin/list.dart';
 import 'package:flutter/material.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
-import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 
 // 토글 버튼 텍스트
 const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Text('관리자')];
@@ -225,21 +225,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                           }
                           else if (_selectedDisableType[1] == true) {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const DeclareScreen(),
                             ),
-                            (route) => false,
                           );
                           }
                           else if (_selectedDisableType[2] == true) {
-                            Navigator.pushAndRemoveUntil(
+                            Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const BlueprintScreen(),
+                              builder: (context) => const AdminList(),
                             ),
-                            (route) => false,
                           );
                           }
                         },
