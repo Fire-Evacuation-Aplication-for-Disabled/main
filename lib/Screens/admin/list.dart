@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Item {
   final String title;
@@ -17,12 +16,14 @@ class Item {
 }
 
 class AdminList extends StatelessWidget {
+  const AdminList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(226, 0, 0, 0),
       appBar: AppBar(
-        title: Text('Admin List'),
+        title: const Text('Admin List'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -30,7 +31,7 @@ class AdminList extends StatelessWidget {
             .snapshots(), // 컬렉션 이름 변경
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
@@ -50,7 +51,7 @@ class AdminList extends StatelessWidget {
               final item = items[index];
               return Card(
                 // 카드 형식으로 표시
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 child: Padding(
                   padding:const EdgeInsets.all(16.0),
                 child: Row(
@@ -60,13 +61,13 @@ class AdminList extends StatelessWidget {
                     Expanded(
                       child: Text(
                         item.title,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     Text(
                       //numcount값을 string으로 변환
                       item.subtitle.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20.0, fontWeight: FontWeight.bold), // 큰 텍스트
                     ),
                   ],
