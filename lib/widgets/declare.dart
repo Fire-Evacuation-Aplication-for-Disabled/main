@@ -27,13 +27,6 @@ class DeclareScreen extends StatelessWidget {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back)),
-        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -48,15 +41,13 @@ class DeclareScreen extends StatelessWidget {
                             ),
                 );
               },
-              child: Expanded(
-                child: Container(
-                  width: size.width,
-                  height: size.height * 0.45,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(189, 249, 43, 29),
-                  ),
-                  child: const Center(child: Text('Declare', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),),),
+              child: Container(
+                width: size.width,
+                height: size.height * 0.45,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(189, 249, 43, 29),
                 ),
+                child: const Center(child: Text('Declare', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),),),
               ),
             ),
             // 터치 시 Manual화면으로 이동

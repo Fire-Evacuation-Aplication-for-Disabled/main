@@ -217,27 +217,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         onPressed: () {
                           if (_selectedDisableType[0] == true) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const DeclareScreen(),
                             ),
+                            (route) => false,
                           );
                           }
                           else if (_selectedDisableType[1] == true) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const DeclareScreen(),
                             ),
+                            (route) => false,
                           );
                           }
                           else if (_selectedDisableType[2] == true) {
-                            Navigator.push(
+                            Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const AdminList(),
                             ),
+                            (route) => false,
                           );
                           }
                         },
