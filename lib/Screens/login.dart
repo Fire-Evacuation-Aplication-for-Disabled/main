@@ -69,13 +69,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() async {
     String id = idController.text.trim();
     String pw = pwController.text.trim();
-    String loginMessege = '';
+    // String loginMessege = '';
 
     bool success = await _loginService.login(id, pw);
 
     // 공백이면 로그인 시도를 하지 않음
     if (id.isEmpty || pw.isEmpty) {
-      loginMessege = 'Id or Password is Empty';
+      // loginMessege = 'Id or Password is Empty';
       return;
     }
 
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     else {
         if (mounted) {
-          loginMessege = 'Please check your id or password';
+          // loginMessege = 'Please check your id or password';
       }
     }
   }
