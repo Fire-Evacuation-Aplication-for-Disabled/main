@@ -51,6 +51,7 @@ class ManualScreen extends StatelessWidget {
     double heightRatio = screenHeight / 2400; //1080x2400 에뮬레이터 기준
 
     return MaterialApp( 
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           backgroundColor: const Color.fromARGB(226, 0, 0, 0),
           body: Column(
