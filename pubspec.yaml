@@ -57,6 +57,7 @@ flutter:
   - assets/images/crouch.png
   - assets/images/knock.png
   - assets/images/exit.png
+  - assets/images/blueprint.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
