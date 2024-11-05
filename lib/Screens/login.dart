@@ -12,12 +12,43 @@
 
 // TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/Screens/admin/list.dart';
-import 'package:flutter/material.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
+import 'package:flutter/material.dart';
 
 // 토글 버튼 텍스트
 const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Text('관리자')];
+
+class LoginService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<bool> login(String inputId, String inputPw) async {
+    try {
+      // Firestore 'users' 컬렉션에서 id가 inputId와 일치하는 문서를 조회
+      var querySnapshot = await _firestore
+          .collection('user')
+          .where('id', isEqualTo: inputId)
+          .get();
+
+      // 일치하는 문서가 있는지 확인
+      if (querySnapshot.docs.isNotEmpty) {
+        var userDoc = querySnapshot.docs.first;
+
+        // 비밀번호 확인
+        if (userDoc['pw'] == inputPw) {
+          return true; // 로그인 성공
+        } else {
+          return false; // 비밀번호가 일치하지 않음
+        }
+      } else {
+        return false; // 해당 id가 존재하지 않음
+      }
+    } catch (e) {
+      return false;
+    }
+  }
+}
 
 // login screen (어플리케이션 이름 및 아이콘 출력 / id, pw와 장애 유형을 선택받고 해당하는 다음 화면으로 라우팅)
 class LoginScreen extends StatefulWidget {
@@ -28,25 +59,77 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  
   // id,pw 입력값 변수
   final TextEditingController idController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
+
+  final LoginService _loginService = LoginService();
+
+  void _handleLogin() async {
+    String id = idController.text.trim();
+    String pw = pwController.text.trim();
+    // String loginMessege = '';
+
+    bool success = await _loginService.login(id, pw);
+
+    // 공백이면 로그인 시도를 하지 않음
+    if (id.isEmpty || pw.isEmpty) {
+      // loginMessege = 'Id or Password is Empty';
+      return;
+    }
+
+    if (success) {
+      // 로그인 성공 시, 다음 화면으로 이동하거나 성공 메시지를 보여줌
+      if (mounted) {
+        if (_selectedDisableType[0] == true) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DeclareScreen(),
+            ),
+            (route) => false,
+          );
+        } else if (_selectedDisableType[1] == true) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DeclareScreen(),
+            ),
+            (route) => false,
+          );
+        } else if (_selectedDisableType[2] == true) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdminList(),
+            ),
+            (route) => false,
+          );
+        }
+      }
+    }
+    else {
+        if (mounted) {
+          // loginMessege = 'Please check your id or password';
+      }
+    }
+  }
 
   // 장애 유형 유형 선택 유무
   final List<bool> _selectedDisableType = <bool>[false, false, false];
 
   @override
   Widget build(BuildContext context) {
-
     // 디바이스 크기 변수
     final Size size = MediaQuery.of(context).size;
-    
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
           backgroundColor: const Color.fromARGB(226, 0, 0, 0),
-        
+
           // 스크롤 활성화 -> 키보드 overflow 개선 위함
           body: SingleChildScrollView(
             child: Padding(
@@ -69,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-        
+
                   // 어플리케이션 이름 텍스트
                   const Center(
                     child: Text(
@@ -84,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: size.height * 0.06563,
                   ),
-        
+
                   // 아이콘
                   Center(
                     child: Container(
@@ -93,7 +176,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color.fromARGB(235, 255, 255, 255),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * 0.12153, vertical: size.height * 0.05469),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.12153,
+                            vertical: size.height * 0.05469),
                         child: const Icon(
                           Icons.accessible,
                           size: 150,
@@ -101,10 +186,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: size.height * 0.054688
-                  ),
-        
+                  SizedBox(height: size.height * 0.054688),
+
                   // id 입력 받는 inputBox
                   Row(
                     children: [
@@ -121,7 +204,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             fillColor: Colors.white,
                             border: const OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: size.height * 0.02188, horizontal: size.width * 0.02431),
+                                vertical: size.height * 0.02188,
+                                horizontal: size.width * 0.02431),
                           ),
                           keyboardType: TextInputType.text,
                           controller: idController,
@@ -132,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: size.height * 0.02188,
                   ),
-        
+
                   // pw 입력 받는 inputBox
                   Row(
                     children: [
@@ -149,7 +233,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             fillColor: Colors.white,
                             border: const OutlineInputBorder(),
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: size.height * 0.02188, horizontal: size.width * 0.02431),
+                                vertical: size.height * 0.02188,
+                                horizontal: size.width * 0.02431),
                           ),
                           keyboardType: TextInputType.text,
                           controller: pwController,
@@ -161,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: size.height * 0.03938,
                   ),
-        
+
                   // 장애 유형 선택 버튼
                   Center(
                     child: Row(
@@ -198,12 +283,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-        
+
                   SizedBox(
                     height: size.height * 0.03281,
                   ),
-        
-                  // 로그인 버튼 추후 pushAndRemoveUntil로 변경?
+
+                  // 로그인 버튼
                   Row(
                     children: [
                       Expanded(
@@ -215,33 +300,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () {
-                            if (_selectedDisableType[0] == true) {
-                              Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DeclareScreen(),
-                              ),
-                              (route) => false,
-                            );
-                            }
-                            else if (_selectedDisableType[1] == true) {
-                              Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DeclareScreen(),
-                              ),
-                              (route) => false,
-                            );
-                            }
-                            else if (_selectedDisableType[2] == true) {
-                              Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AdminList(),
-                              ),
-                              (route) => false,
-                            );
-                            }
+                            _handleLogin();
                           },
                           child: const Text(
                             '로그인',
