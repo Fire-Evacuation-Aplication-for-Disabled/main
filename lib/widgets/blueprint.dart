@@ -1,36 +1,28 @@
-// *********************************************************************************************
-// *
-// *             파일명 : blueprint.dart
-// *
-// *             작성자 : 임준용
-// *
-// *             마지막 수정일 : 2024.11.05
-// *
-// *             파일 내용 : 대피를 위한 건물 모형도를 제공해주며, 화재 발생 층 및 내가 위치한 층 표시
-// *
-// **********************************************************************************************
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// TO DO: location 그림 위에 표시
+
 class BlueprintScreen extends StatelessWidget {
   const BlueprintScreen({super.key});
 
-  Stream<Map<String,String?>> getLocationStream() {
+  Stream<Map<String, String?>> getLocationStream() {
     return FirebaseFirestore.instance
         .collection('info_')
         .doc('location')
         .snapshots()
         .map((snapshot) {
-          if (snapshot.exists && snapshot.data() != null) {
-            Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-            return {
-              'myLocation': data['myLocation'] as String?,
-              'fireLocation': data['fireLocation'] as String?,
-            };
-          }
-          return {'myLocation':null, 'fireLocation':null};
-        });
+      if (snapshot.exists && snapshot.data() != null) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        return {
+          'myLocation': data['myLocation'] as String?,
+          'fireLocation': data['fireLocation'] as String?,
+        };
+      }
+      return {'myLocation': null, 'fireLocation': null};
+    });
   }
 
   @override
@@ -49,7 +41,7 @@ class BlueprintScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back)),
         ),
-        body: StreamBuilder<Map<String,String?>>(
+        body: StreamBuilder<Map<String, String?>>(
             stream: getLocationStream(),
             builder: (context, AsyncSnapshot<Map<String, String?>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -63,13 +55,15 @@ class BlueprintScreen extends StatelessWidget {
                 );
               }
               if (!snapshot.hasData || snapshot.data == null) {
-                return Center(child: Text('No Info Found!'),);
+                return Center(
+                  child: Text('No Info Found!'),
+                );
               }
               String? myLocation = snapshot.data!['myLocation'];
               String? fireLocation = snapshot.data!['fireLocation'];
-              
+
               return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
                     children: [
@@ -111,9 +105,6 @@ class BlueprintScreen extends StatelessWidget {
                             ),
                           )),
                     ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01094,
                   ),
                   InkWell(
                       onTap: () {
@@ -157,18 +148,15 @@ class _BlueprintImageState extends State<BlueprintImage> {
               },
               icon: const Icon(Icons.arrow_back)),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Hero(
-                tag: id,
-                child: Transform.rotate(
-                    angle: 3.141592 / 2,
-                    child: Image.asset(
-                      'assets/images/blueprint.png',
-                      fit: BoxFit.contain,
-                    ))),
-          ],
+        body: Center(
+          child: Hero(
+              tag: id,
+              child: Transform.rotate(
+                  angle: pi / 2,
+                  child: Image.asset(
+                    'assets/images/blueprint.png',
+                    fit: BoxFit.cover,
+                  ))),
         ),
       ),
     );

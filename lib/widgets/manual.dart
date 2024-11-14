@@ -1,19 +1,9 @@
-// ******************************************************
-// *
-// *             파일명 : manual.dart
-// *
-// *             작성자 : 최유현
-// *
-// *             마지막 수정일 : 2024.10.30
-// *
-// *             파일 내용 : 메뉴얼 (반응형 o)
-// *
-// ******************************************************
-
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart'; // imageurl 을 이용하기 위한 package
+
+// TO DO: manaual firebase에 있는 리스트 불러와서 시각, 휠체어에 각각 라우팅되도록 변경
 
 class MaunalModel {
   const MaunalModel(

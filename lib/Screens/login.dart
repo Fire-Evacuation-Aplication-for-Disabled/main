@@ -1,21 +1,10 @@
-// ******************************************************************
-// *
-// *             파일명 : login.dart
-// *
-// *             작성자 : 임준용
-// *
-// *             마지막 수정일 : 2024.10.25
-// *
-// *             파일 내용 : 어플리케이션 '대피닷'의 login screen 개발
-// *
-// *****************************************************************
-
-// TO DO : 전체적인 컨셉에 따라 디자인 변경, 로그인 firebase와 연결
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/Screens/admin/list.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
 import 'package:flutter/material.dart';
+
+// TO DO: background 작동, 블루투스 연결
+// copilot 연결
 
 // 토글 버튼 텍스트
 const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Text('관리자')];
