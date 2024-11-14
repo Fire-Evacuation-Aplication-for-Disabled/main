@@ -1,15 +1,3 @@
-// ******************************************************
-// *
-// *             파일명 : declare.dart
-// *
-// *             작성자 : 임준용
-// *
-// *             마지막 수정일 : 2024.10.25
-// *
-// *             파일 내용 : 119 신고 혹은 메뉴얼 선택 화면
-// *
-// ******************************************************
-
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:flutter/material.dart';
@@ -30,22 +18,23 @@ class DeclareScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // 터치 시 Declare (신고) 후 다음 화면(blueprint)로 이동
-              InkWell(
-                onTap: (){
-                  Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const BlueprintScreen(),
-                              ),
-                  );
-                },
-                child: Container(
-                  width: size.width,
-                  height: size.height * 0.5,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(189, 249, 43, 29),
+              Expanded(
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const BlueprintScreen(),
+                                ),
+                    );
+                  },
+                  child: Container(
+                    width: size.width,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(189, 249, 43, 29),
+                    ),
+                    child: const Center(child: Text('Declare', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),),),
                   ),
-                  child: const Center(child: Text('Declare', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),),),
                 ),
               ),
               // 터치 시 Manual화면으로 이동
@@ -60,7 +49,7 @@ class DeclareScreen extends StatelessWidget {
                 },
                 child: Container(
                   width: size.width,
-                  height: size.height * 0.5,
+                  height: size.height * 0.49,
                   decoration: const BoxDecoration(
                     color: Color.fromARGB(199, 255, 235, 59),
                   ),
