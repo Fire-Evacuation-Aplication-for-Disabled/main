@@ -1,6 +1,6 @@
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
-import 'package:fire_evacuation_assistance_for_disabled/component/TextToSpeech.dart';
+import 'package:fire_evacuation_assistance_for_disabled/component/text_to_speech.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart'; // imageurl 을 이용하기 위한 package
 
