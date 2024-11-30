@@ -11,6 +11,7 @@ const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Tex
 
 class LoginService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late String value;
 
   Future<bool> login(String inputId, String inputPw) async {
     try {
@@ -75,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const DeclareScreen(),
+              builder: (context) => DeclareScreen(value: "visual",),
             ),
             (route) => false,
           );
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const DeclareScreen(),
+              builder: (context) => DeclareScreen(value: "wheelchair",),
             ),
             (route) => false,
           );

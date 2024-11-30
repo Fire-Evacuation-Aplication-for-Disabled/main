@@ -1,12 +1,15 @@
 import 'dart:math';
-
+import 'package:fire_evacuation_assistance_for_disabled/component/TextToSpeech.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 
 // TO DO: location 그림 위에 표시
 
+// ignore: must_be_immutable
 class BlueprintScreen extends StatelessWidget {
-  const BlueprintScreen({super.key});
+  late String value;
+  BlueprintScreen({required this.value, super.key});
 
   Stream<Map<String, String?>> getLocationStream() {
     return FirebaseFirestore.instance
@@ -29,17 +32,32 @@ class BlueprintScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final dynamic id = 'blueprint';
+    late String? myLocation;
+    late String? fireLocation;
+
+    final textToSpeech = TextToSpeech();
+    textToSpeech.initState();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color.fromARGB(226, 0, 0, 0),
         // appBar로 뒤로 이동할 수 있는 back_arrow 생성
         appBar: AppBar(
-          leading: IconButton(
+          backgroundColor: Color.fromARGB(226, 0, 0, 0),
+          centerTitle: true,
+          title: TextButton(
+              child: Text('화재 대피 메뉴얼 보기',style: TextStyle(fontWeight: FontWeight.w700, fontSize: 33, color: Color.fromARGB(218, 255, 0, 0)),),
               onPressed: () {
-                Navigator.pop(context);
+                textToSpeech.stop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ManualScreen(value: value),
+                    ),
+                  );
               },
-              icon: const Icon(Icons.arrow_back)),
+              ),
         ),
         body: StreamBuilder<Map<String, String?>>(
             stream: getLocationStream(),
@@ -59,8 +77,11 @@ class BlueprintScreen extends StatelessWidget {
                   child: Text('No Info Found!'),
                 );
               }
-              String? myLocation = snapshot.data!['myLocation'];
-              String? fireLocation = snapshot.data!['fireLocation'];
+              myLocation = snapshot.data!['myLocation'];
+              fireLocation = snapshot.data!['fireLocation'];
+
+              final textToSpeech = TextToSpeech();
+              value == 'visual' ? textToSpeech.speak('화재 발생 층은 $fireLocation이고, 현재 나의 위치는 $myLocation입니다. 화재 대피 메뉴얼을 보려면 화면 중앙 최상단을 터치하십시오.') : false;
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -70,7 +91,7 @@ class BlueprintScreen extends StatelessWidget {
                       Container(
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color.fromARGB(226, 0, 0, 0),
+                            color: Color.fromARGB(225, 255, 255, 255),
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -79,7 +100,7 @@ class BlueprintScreen extends StatelessWidget {
                             child: Text(
                               myLocation ?? 'Not Found',
                               style: TextStyle(
-                                color: Color.fromARGB(235, 255, 255, 255),
+                                color: Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 20,
                               ),
                             ),
@@ -90,7 +111,7 @@ class BlueprintScreen extends StatelessWidget {
                       Container(
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Color.fromARGB(226, 0, 0, 0),
+                            color: Color.fromARGB(255, 255, 255, 255),
                           ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
