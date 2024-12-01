@@ -29,14 +29,14 @@ const manualListVisual = [
 ]; // 이미지 URL, 타이틀숫자, 대피메뉴얼 으로 리스트 구성
 
 const manualListWheelchair = [
-  MaunalModel("assets/images/alarm.png", "1",
+  MaunalModel("assets/images/alarm_wheel.png", "1",
       "화재 발생 시 호루라기를 불거나 소리를 질러 보호자 또는 주변인에게 신속하게 도움을 요청한다."),
-  MaunalModel("assets/images/knock.png", "2",
+  MaunalModel("assets/images/alarm2_wheel.png", "2",
       "화재로 인해 고립되었을 경우, 물건이나 주변 시설을 두드려 소음을 내어 응급상황을 알린다."),
   MaunalModel(
-      "assets/images/crouch.png", "3", "휠체어를 이용하거나 몸을 끌어서 출구 쪽으로 이동한다."),
+      "assets/images/crawl_wheel.png", "3", "휠체어를 이용하거나 몸을 끌어서 출구 쪽으로 이동한다."),
   MaunalModel(
-      "assets/images/exit.png", "4", "연기가 날 때는 젖은 손수건이나 옷으로 입과 코를 막는다."),
+      "assets/images/smoke_wheel.png", "4", "연기가 날 때는 젖은 손수건이나 옷으로 입과 코를 막는다."),
 ];
 
 // ignore: must_be_immutable
@@ -110,7 +110,7 @@ class ManualScreen extends StatelessWidget {
               ),
               const Center(
                 child: Text(
-                  "화재 대피 메뉴얼 ",
+                  "화재 대피 매뉴얼 ",
                   style: TextStyle(
                       color: Color.fromARGB(218, 255, 62, 62),
                       fontSize: 45,

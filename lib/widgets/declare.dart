@@ -27,9 +27,8 @@ class DeclareScreen extends StatelessWidget {
         final currentCount = doc['userCount'] ?? 0;
         await docRef.update({'userCount': currentCount + 1});
         declareCheck = true;
-      } else {
-      }
-    // ignore: empty_catches
+      } else {}
+      // ignore: empty_catches
     } catch (e) {}
   }
 
@@ -40,7 +39,8 @@ class DeclareScreen extends StatelessWidget {
     textToSpeech.initializeTts();
 
     if (value == 'visual') {
-      textToSpeech.speak('화재 신고를 하려면 화면 상단을 누르고, 화재 대피 메뉴얼을 들으시려면 화면 하단을 눌러주세요');
+      textToSpeech
+          .speak('화재 신고를 하려면 화면 상단을 누르고, 화재 대피 메뉴얼을 들으시려면 화면 하단을 눌러주세요');
     }
 
     return MaterialApp(
@@ -73,10 +73,26 @@ class DeclareScreen extends StatelessWidget {
                       color: Color.fromARGB(189, 249, 43, 29),
                     ),
                     child: const Center(
-                      child: Text(
-                        'Declare',
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.w600),
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '119 신고 ',
+                              style: TextStyle(
+                                fontSize: 38,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            TextSpan(
+                              text: '📢', // 사이렌 이모티콘
+                              style: TextStyle(
+                                fontSize: 50, // 더 큰 크기로 설정
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -100,10 +116,26 @@ class DeclareScreen extends StatelessWidget {
                     color: Color.fromARGB(199, 255, 235, 59),
                   ),
                   child: const Center(
-                    child: Text(
-                      'Manual',
-                      style:
-                          TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '화재 대피 매뉴얼 ',
+                            style: TextStyle(
+                              fontSize: 38,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          TextSpan(
+                            text: '📖', // 매뉴얼 이모티콘
+                            style: TextStyle(
+                              fontSize: 50, // 더 큰 크기로 설정
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
