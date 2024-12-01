@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:fire_evacuation_assistance_for_disabled/component/text_to_speech.dart';
+import 'package:fire_evacuation_assistance_for_disabled/components/text_to_speech.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
@@ -36,7 +36,7 @@ class BlueprintScreen extends StatelessWidget {
     late String? fireLocation;
 
     final textToSpeech = TextToSpeech();
-    textToSpeech.initState();
+    textToSpeech.initializeTts();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

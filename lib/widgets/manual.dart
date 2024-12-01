@@ -1,6 +1,6 @@
 import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
-import 'package:fire_evacuation_assistance_for_disabled/component/text_to_speech.dart';
+import 'package:fire_evacuation_assistance_for_disabled/components/text_to_speech.dart';
 import 'package:flutter/material.dart';
 // import 'package:image_network/image_network.dart'; // imageurl 을 이용하기 위한 package
 
@@ -56,7 +56,7 @@ class ManualScreen extends StatelessWidget {
     double heightRatio = screenHeight / 2400; //1080x2400 에뮬레이터 기준
 
     final textToSpeech = TextToSpeech();
-    textToSpeech.initState();
+    textToSpeech.initializeTts();
 
     value == 'visual' ? textToSpeech.speak('화재 대피 메뉴얼은 다음과 같습니다. 첫 째, 되도록이면 보호자와 함께 대피하고, 만약 보호자가 없을 시 크게 소리르 질러 주변에 도움을 요청한다. 둘 째, 화재로 인해 고립되었을 경우, 물건이나 주변 시설을 두드려 소음을 내어 응급상황을 알린다. 셋 째, 대피시 한쪽 벽이나 이동 손잡이 등을 이용하여 움직인다. 넷 째, 젖은 수건으로 코와 입을 막은 채 낮은 자세로 계단을 통해 대피한다.'): Null;
 

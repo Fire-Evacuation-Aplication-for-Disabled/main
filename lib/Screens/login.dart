@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/Screens/admin/list.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
+import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 import 'package:flutter/material.dart';
 
 // TO DO: background 작동, 블루투스 연결
@@ -13,7 +14,7 @@ class LoginService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late String value;
 
-  Future<bool> login(String inputId, String inputPw) async {
+  Future<String> login(String inputId, String inputPw) async {
     try {
       // Firestore 'users' 컬렉션에서 id가 inputId와 일치하는 문서를 조회
       var querySnapshot = await _firestore
@@ -27,15 +28,15 @@ class LoginService {
 
         // 비밀번호 확인
         if (userDoc['pw'] == inputPw) {
-          return true; // 로그인 성공
+          return 'success'; // 로그인 성공
         } else {
-          return false; // 비밀번호가 일치하지 않음
+          return 'wrongPassword'; // 비밀번호가 일치하지 않음
         }
       } else {
-        return false; // 해당 id가 존재하지 않음
+        return 'noId'; // 해당 id가 존재하지 않음
       }
     } catch (e) {
-      return false;
+      return 'error';
     }
   }
 }
@@ -61,15 +62,15 @@ class _LoginScreenState extends State<LoginScreen> {
     String pw = pwController.text.trim();
     // String loginMessege = '';
 
-    bool success = await _loginService.login(id, pw);
+    String successCheck = await _loginService.login(id, pw);
 
     // 공백이면 로그인 시도를 하지 않음
     if (id.isEmpty || pw.isEmpty) {
       // loginMessege = 'Id or Password is Empty';
-      return;
+      return dialog(context, '로그인 실패', '로그인 정보를 입력해주세요!');
     }
 
-    if (success) {
+    if (successCheck == 'success') {
       // 로그인 성공 시, 다음 화면으로 이동하거나 성공 메시지를 보여줌
       if (mounted) {
         if (_selectedDisableType[0] == true) {
@@ -101,7 +102,15 @@ class _LoginScreenState extends State<LoginScreen> {
     }
     else {
         if (mounted) {
-          // loginMessege = 'Please check your id or password';
+          if (successCheck == 'wrongPassword'){
+            dialog(context, '로그인 실패', '잘못된 비밀번호입니다.');
+          }
+          else if (successCheck == 'noId'){
+            dialog(context, '로그인 실패', '존재하지 않는 아이디입니다.');
+          }
+          else if (successCheck == 'error'){
+            dialog(context, '에러', '예기치 못한 에러입니다.');
+          }
       }
     }
   }
