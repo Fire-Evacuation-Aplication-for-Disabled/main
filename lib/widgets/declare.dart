@@ -2,34 +2,60 @@ import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/text_to_speech.dart';
 import 'package:flutter/material.dart';
-import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+  bool declareCheck = false;
 
 // ignore: must_be_immutable
 class DeclareScreen extends StatelessWidget {
   late String value;
-  bool declareCheck = false;
   DeclareScreen({required this.value, super.key});
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  Future<Map<String, dynamic>?> documentFinder(String serial) async {
+    if (!declareCheck) {
+      try {
+      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
+          await FirebaseFirestore.instance
+              .collection('serial')
+              .doc(serial)
+              .get();
 
-  Future<void> incrementUserCount(String address) async {
-    try {
-      final querySnapshot = await _firestore
-          .collection('lists')
-          .where('address', isEqualTo: address)
-          .limit(1)
-          .get();
+      if (!documentSnapshot.exists) {
+        return null;
+      }
 
-      if (querySnapshot.docs.isNotEmpty && declareCheck == false) {
-        final doc = querySnapshot.docs.first;
-        final docRef = doc.reference;
-        final currentCount = doc['userCount'] ?? 0;
-        await docRef.update({'userCount': currentCount + 1});
+      final data = documentSnapshot.data();
+      final String? address = data?['location'];
+      final int? floor = data?['floor'];
+      if (address == null) {
+        return null;
+      }
+
+      DocumentReference<Map<String, dynamic>> addressDocRef =
+          FirebaseFirestore.instance.collection(address).doc('floor$floor');
+
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot<Map<String, dynamic>> snapshot =
+            await transaction.get(addressDocRef);
+
+        if (!snapshot.exists) {
+          // 문서가 없는 경우 새로 생성
+          transaction.set(addressDocRef, {serial: 1});
+        } else {
+          // 문서가 있는 경우 count 증가
+          final currentCount = snapshot.data()?[serial] ?? 0;
+          transaction.update(addressDocRef, {serial: currentCount + 1});
+        }
         declareCheck = true;
-      } else {}
-      // ignore: empty_catches
-    } catch (e) {}
+      });
+      
+    } catch (e) {
+      return null;
+    }
+    return null;
+    }
+    return null;
   }
 
   @override
@@ -57,7 +83,7 @@ class DeclareScreen extends StatelessWidget {
                   onTap: () async {
                     textToSpeech.stop();
 
-                    await incrementUserCount('서울특별시 동대문구 서울시립대로 163 (전농동)');
+                    await documentFinder('serialA1-1');
 
                     Navigator.push(
                       // ignore: use_build_context_synchronously
