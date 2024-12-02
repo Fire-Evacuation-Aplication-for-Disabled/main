@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 
-
 // TO DO: 화살표 다시 정리하기, 화면 검은색으로, 사진 변경, 데이터 시리얼 추가
 
 bool checkedDeclare = false;
@@ -73,8 +72,8 @@ class BlueprintScreen extends StatelessWidget {
     final textToSpeech = TextToSpeech();
     textToSpeech.initializeTts();
 
-    if (value != 'visual'){
-      if (!checkedDeclare){
+    if (value != 'visual') {
+      if (!checkedDeclare) {
         dialog(context, '신고 완료', '신고가 정상적으로 접수 되었습니다.');
       }
       checkedDeclare = true;
@@ -96,55 +95,59 @@ class BlueprintScreen extends StatelessWidget {
                 color: Color.fromARGB(218, 255, 0, 0),
               ),
             ),
-              onPressed: () {
-                textToSpeech.stop();
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManualScreen(value: value),
-                    ),
-                  );
-              },
-              ),
+            onPressed: () {
+              textToSpeech.stop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ManualScreen(value: value),
+                ),
+              );
+            },
+          ),
         ),
         body: StreamBuilder<Map<String, int?>>(
-            stream: getLocationStream(),
+          stream: getLocationStream(),
           builder: (context, AsyncSnapshot<Map<String, int?>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
-                );
-              }
-              if (!snapshot.hasData || snapshot.data == null) {
-                return Center(
-                  child: Text('No Info Found!'),
-                );
-              }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Error: ${snapshot.error}'),
+              );
+            }
+            if (!snapshot.hasData || snapshot.data == null) {
+              return Center(
+                child: Text('No Info Found!'),
+              );
+            }
 
             int? myLocation = snapshot.data!['myLocation'];
             int? fireLocation = snapshot.data!['fireLocation'];
 
             // 큰 값과 작은 값 비교
-            int? upperArrow;
-            int? downArrow;
-            String fireLocationDescription = "";
-            String myLocationDescription = "";
+            int? upperValue;
+            int? downValue;
+            String upperArrow = "";
+            String downArrow = "";
             if (myLocation != null && fireLocation != null) {
-              upperArrow = max(myLocation, fireLocation);
-              downArrow = min(myLocation, fireLocation);
+              upperValue = max(myLocation, fireLocation);
+              downValue = min(myLocation, fireLocation);
             }
 
-            fireLocationDescription = "화재 🔥 : $fireLocation 층";
-            myLocationDescription = "나 🧒🏻 : $myLocation 층";
-
+            if (myLocation! < fireLocation!) {
+              upperArrow = "화재 🔥 : $upperValue 층";
+              downArrow = "나 🧒🏻 : $downValue 층";
+            } else {
+              upperArrow = "나 🧒🏻 : $upperValue 층";
+              downArrow = "화재 🔥 : $downValue 층";
+            }
             // 음성 출력
             if (value == 'visual') {
-              if (!checkedDeclare){
+              if (!checkedDeclare) {
                 checkedDeclare = true;
                 textToSpeech.speak('신고가 정상적으로 접수되었습니다.');
               }
@@ -154,65 +157,79 @@ class BlueprintScreen extends StatelessWidget {
               );
             }
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                    // Upper Triangle
-                    CustomPaint(
-                      size: Size(60, 60),
-                      painter: TrianglePainter(
-                        color: Color.fromARGB(218, 255, 0, 0),
-                        isUpward: true,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    if (myLocation != fireLocation) ...[
+                      // Upper Triangle
+                      CustomPaint(
+                        size: Size(60, 60),
+                        painter: TrianglePainter(
+                          color: fireLocation > myLocation // 위 화살표의 값이 fire면 빨간색, mylocation이면 초록색
+                         ? Color.fromARGB(218, 255, 0, 0) // 빨간색
+                         : Color.fromARGB(218, 0, 255, 38), // 초록색
+                          isUpward: true,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      upperArrow != null ? fireLocationDescription : 'No Data',
-                              style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontSize: 30,
-                              ),
-                            ),
-                    SizedBox(height: size.height * 0.01094),
+                      SizedBox(height: 8),
+                      Text(
+                        upperArrow != null ? upperArrow : 'No Data',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 30,
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.01094),
 
-                    // Down Triangle
-                    
-                    SizedBox(height: 8),
-                    Text(
-                      downArrow != null ? myLocationDescription : 'No Data',
-                      style: TextStyle(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 30,
-                              ),
-                            ),
-                    SizedBox(height: 8),
-                    CustomPaint(
-                      size: Size(60, 60),
-                      painter: TrianglePainter(
-                        color: Color.fromARGB(218, 0, 255, 0),
-                        isUpward: false,
+                      // Down Triangle
+
+                      SizedBox(height: 8),
+                      Text(
+                        downArrow != null ? downArrow : 'No Data',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 30,
+                        ),
                       ),
-                    ),
-                    ],
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BlueprintImage(),
-                          ),
-                        );
-                      },
-                      child: Hero(
-                          tag: id,
+                      SizedBox(height: 8),
+                      CustomPaint(
+                        size: Size(60, 60),
+                        painter: TrianglePainter(
+                          color: fireLocation > myLocation // 위 화살표의 값이 fire면 빨간색, mylocation이면 초록색
+                         ? Color.fromARGB(218, 0, 255, 68) // 빨간색
+                         : Color.fromARGB(218, 255, 0, 0),
+                          isUpward: false,
+                        ),
+                      ),
+                    ] else ...[
+                      Text(
+                        '화재🔥 나🧒🏻 : $myLocation층',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 30,
+                        ),
+                      )
+                    ]
+                  ],
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BlueprintImage(),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: id,
                     child: Image.asset('assets/images/blueprint.png'),
                   ),
                 ),
-                ],
-              );
+              ],
+            );
           },
         ),
       ),
@@ -239,20 +256,23 @@ class _BlueprintImageState extends State<BlueprintImage> {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(226, 0, 0, 0),
           leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            icon: const Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255),),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Color.fromARGB(255, 255, 255, 255),
+            ),
           ),
         ),
         body: Center(
           child: Hero(
-              tag: id,
-              child: Transform.rotate(
-                  angle: pi / 2,
-                  child: Image.asset(
-                    'assets/images/blueprint.png',
-                    fit: BoxFit.cover,
+            tag: id,
+            child: Transform.rotate(
+              angle: pi / 2,
+              child: Image.asset(
+                'assets/images/blueprint.png',
+                fit: BoxFit.cover,
               ),
             ),
           ),
