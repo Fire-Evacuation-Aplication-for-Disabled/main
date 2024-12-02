@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_evacuation_assistance_for_disabled/screens/admin/detail_list.dart';
 
 // TO DO: 리스크 클릭 시 건물로 이동
 // admin은 후순위로
@@ -64,9 +65,17 @@ class AdminList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                     children: [
                       Expanded(
-                        child: Text(
-                          item.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                      // ignore: use_build_context_synchronously
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailList(address: "163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul"),
+                      ),
+                    );
+                          },
+                          child: Text(item.title,style: const TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ),
                       Text(
