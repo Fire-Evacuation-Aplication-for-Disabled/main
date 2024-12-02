@@ -13,8 +13,8 @@ class DeclareScreen extends StatelessWidget {
   DeclareScreen({required this.value, super.key});
 
   Future<Map<String, dynamic>?> documentFinder(String serial) async {
-    if (!declareCheck) {
-      try {
+  if (!declareCheck) {
+    try {
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
           await FirebaseFirestore.instance
               .collection('serial')
@@ -26,8 +26,9 @@ class DeclareScreen extends StatelessWidget {
       }
 
       final data = documentSnapshot.data();
-      final String? address = data?['location'];
+      final String? address = data?['location']; // address 추출
       final int? floor = data?['floor'];
+
       if (address == null) {
         return null;
       }
@@ -49,14 +50,41 @@ class DeclareScreen extends StatelessWidget {
         }
         declareCheck = true;
       });
-      
+
+      // address 값을 incrementUserCount로 전달
+      await incrementUserCount(address);
+
     } catch (e) {
+      print('Error in documentFinder: $e');
       return null;
     }
-    return null;
-    }
-    return null;
   }
+  return null;
+}
+
+Future<void> incrementUserCount(String address) async {
+  final collectionRef = FirebaseFirestore.instance.collection('lists');
+
+  await FirebaseFirestore.instance.runTransaction((transaction) async {
+    final querySnapshot = await collectionRef.where('address', isEqualTo: address).get();
+
+    if (querySnapshot.docs.isEmpty) {
+      final newDocRef = collectionRef.doc(); // 새로운 문서 ID 생성
+      transaction.set(newDocRef, {
+        'address': address,
+        'userCount': 1,
+      });
+    } else {
+      final docRef = querySnapshot.docs.first.reference;
+      final currentData = querySnapshot.docs.first.data();
+      final currentCount = currentData['userCount'] ?? 0; // 기본값 0
+      transaction.update(docRef, {
+        'userCount': currentCount + 1,
+      });
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {

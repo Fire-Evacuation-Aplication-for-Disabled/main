@@ -6,45 +6,41 @@ class DetailList extends StatelessWidget {
 
   const DetailList({required this.address, super.key});
 
-  Future<Map<String, dynamic>?> documentFinder(String? address) async {
+  Future<List<Map<String, dynamic>>> documentFinder(String? address) async {
     if (address == null || address.isEmpty) {
-      print("주소가 null 또는 빈 값입니다.");
-      return null;
+      return [];
     }
 
     try {
-      // Firestore에서 문서 가져오기
-      DocumentSnapshot<Map<String, dynamic>> documentSnapshot =
-          await FirebaseFirestore.instance
-              .collection('address') // 'address' 컬렉션
-              .doc(address) // 문서 ID로 address 사용
-              .get();
+      // Fetch all documents from the Firestore collection
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
+          .collection(address)
+          .get();
 
-      if (!documentSnapshot.exists) {
-        print("문서를 찾을 수 없습니다: $address");
-        return null;
+      if (querySnapshot.docs.isEmpty) {
+        return [];
       }
 
-      return documentSnapshot.data(); // 문서 데이터 반환
+      // Map each document into a list of data
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
-      print("Firestore 오류 발생: $e");
-      return null;
+      return [];
     }
   }
 
-  // 층에 따른 시리얼 번호 리스트 추출 함수
-  List<String> getSerialList(Map<String, dynamic> data) {
+  // Extract serial numbers by floor for all documents
+  List<String> getSerialList(List<Map<String, dynamic>> documents) {
     List<String> serialList = [];
 
-    // 'floor'로 시작하는 모든 필드를 검색
-    data.forEach((key, value) {
-      if (key.startsWith('floor')) {
-        // 각 층에 대해 시리얼 번호를 추출
-        value.forEach((serial, count) {
-          serialList.add(serial); // 시리얼 번호를 리스트에 추가
-        });
-      }
-    });
+    for (var data in documents) {
+      data.forEach((key, value) {
+        if (key.startsWith('floor') && value is Map) {
+          value.forEach((serial, count) {
+            serialList.add(serial); // Add serial numbers to the list
+          });
+        }
+      });
+    }
 
     return serialList;
   }
@@ -52,41 +48,56 @@ class DetailList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Detail List'),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: Text('Detail Information'),
         ),
         body: Center(
-          child: FutureBuilder<Map<String, dynamic>?>(
+          child: FutureBuilder<List<Map<String, dynamic>>>(
             future: documentFinder(address),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator(); // 로딩 상태 표시
+                return CircularProgressIndicator(); // Show loading state
               }
 
               if (snapshot.hasError) {
-                return Text('오류 발생: ${snapshot.error}');
+                return Text('Error occurred: ${snapshot.error}');
               }
 
-              if (!snapshot.hasData || snapshot.data == null) {
-                return Text('데이터를 찾을 수 없습니다.');
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return Text('No data found.');
               }
 
-              final data = snapshot.data!;
-              final serialList = getSerialList(data); // 층에 따른 시리얼 번호 리스트 추출
+              final documents = snapshot.data!;
+              final serialList = getSerialList(documents); // Extract serial numbers from all documents
 
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('주소: $address', style: TextStyle(fontSize: 20)),
+                    Text('Address: $address', style: TextStyle(fontSize: 20)),
                     SizedBox(height: 16),
-                    Text('시리얼 번호 리스트:', style: TextStyle(fontSize: 18)),
+                    Text('Serial Numbers: ', style: TextStyle(fontSize: 18)),
                     SizedBox(height: 8),
-                    // 시리얼 번호를 리스트로 표시
-                    ...serialList.map((serial) => Text(serial, style: TextStyle(fontSize: 16))),
+                    // Display serial numbers in a list
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: serialList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(serialList[index], style: TextStyle(fontSize: 16)),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
               );

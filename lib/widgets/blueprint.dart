@@ -6,7 +6,7 @@ import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 
 
-// TO DO: 화살표 다시 정리하기, 화면 검은색으로, 사진 변경, 데이터 시리얼 추가
+// TO DO: 사진 변경, 데이터 시리얼 추가
 
 bool checkedDeclare = false;
 

@@ -29,7 +29,7 @@ class AdminList extends StatelessWidget {
       home: Scaffold(
         backgroundColor: const Color.fromARGB(226, 0, 0, 0),
         appBar: AppBar(
-          title: const Text('Admin List'),
+          title: const Text('화재 발생 도로명 주소'),
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
@@ -71,7 +71,7 @@ class AdminList extends StatelessWidget {
                       // ignore: use_build_context_synchronously
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailList(address: "163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul"),
+                        builder: (BuildContext context) => DetailList(address: "163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul"),
                       ),
                     );
                           },
