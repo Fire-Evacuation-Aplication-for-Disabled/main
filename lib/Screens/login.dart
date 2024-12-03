@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 // copilot 연결
 
 // 토글 버튼 텍스트
-const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어'), Text('관리자')];
+const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어')];
 
 class LoginService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -27,9 +27,13 @@ class LoginService {
         var userDoc = querySnapshot.docs.first;
 
         // 비밀번호 확인
-        if (userDoc['pw'] == inputPw) {
+        if (inputId == 'admin' && userDoc['pw'] == inputPw){
+          return 'admin';
+        }
+        else if (userDoc['pw'] == inputPw) {
           return 'success'; // 로그인 성공
-        } else {
+        }
+        else {
           return 'wrongPassword'; // 비밀번호가 일치하지 않음
         }
       } else {
@@ -60,17 +64,25 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() async {
     String id = idController.text.trim();
     String pw = pwController.text.trim();
-    // String loginMessege = '';
-
     String successCheck = await _loginService.login(id, pw);
 
     // 공백이면 로그인 시도를 하지 않음
     if (id.isEmpty || pw.isEmpty) {
-      // loginMessege = 'Id or Password is Empty';
       return dialog(context, '로그인 실패', '로그인 정보를 입력해주세요!');
     }
 
-    if (successCheck == 'success') {
+    if (successCheck == 'admin') {
+      if(mounted){
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdminList(),
+            ),
+            (route) => false,
+          );
+      }
+    }
+    else if (successCheck == 'success') {
       // 로그인 성공 시, 다음 화면으로 이동하거나 성공 메시지를 보여줌
       if (mounted) {
         if (_selectedDisableType[0] == true) {
@@ -89,15 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             (route) => false,
           );
-        } else if (_selectedDisableType[2] == true) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AdminList(),
-            ),
-            (route) => false,
-          );
-        }
+        } 
       }
     }
     else {
@@ -116,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   // 장애 유형 유형 선택 유무
-  final List<bool> _selectedDisableType = <bool>[false, false, false];
+  final List<bool> _selectedDisableType = <bool>[false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -267,14 +271,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               const BorderRadius.all(Radius.circular(14)),
                           borderColor: Colors.white,
                           textStyle: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400),
+                              fontSize: 22, fontWeight: FontWeight.w400),
                           selectedBorderColor: Colors.red[700],
                           selectedColor: Colors.white,
                           fillColor: const Color.fromARGB(139, 255, 67, 67),
                           color: Colors.red[400],
                           constraints: BoxConstraints(
                             minHeight: size.height * 0.06015,
-                            minWidth: size.width * 0.27951,
+                            minWidth: size.width * 0.41500,
                           ),
                           isSelected: _selectedDisableType,
                           children: disableType,

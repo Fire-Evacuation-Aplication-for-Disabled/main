@@ -1,4 +1,3 @@
-import 'package:fire_evacuation_assistance_for_disabled/widgets/blueprint.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/text_to_speech.dart';
 import 'package:flutter/material.dart';
@@ -86,20 +85,6 @@ class ManualScreen extends StatelessWidget {
                         );
                       },
                       child: Text("<-Declare",
-                          style: TextStyle(
-                              color: const Color.fromARGB(218, 255, 0, 0),
-                              fontSize: 20))),
-                  TextButton(
-                      onPressed: () {
-                        textToSpeech.stop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BlueprintScreen(value: value,),
-                          ),
-                        );
-                      },
-                      child: Text("대피안내도->",
                           style: TextStyle(
                               color: const Color.fromARGB(218, 255, 0, 0),
                               fontSize: 20))),

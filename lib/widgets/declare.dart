@@ -33,29 +33,25 @@ class DeclareScreen extends StatelessWidget {
         return null;
       }
 
-      DocumentReference<Map<String, dynamic>> addressDocRef =
-          FirebaseFirestore.instance.collection(address).doc('floor$floor');
+      DocumentReference<Map<String, dynamic>> serialDocRef =
+          FirebaseFirestore.instance.collection("serial").doc(serial);
 
       await FirebaseFirestore.instance.runTransaction((transaction) async {
         DocumentSnapshot<Map<String, dynamic>> snapshot =
-            await transaction.get(addressDocRef);
+            await transaction.get(serialDocRef);
 
         if (!snapshot.exists) {
-          // 문서가 없는 경우 새로 생성
-          transaction.set(addressDocRef, {serial: 1});
+          transaction.set(serialDocRef, {'count': 1});
         } else {
-          // 문서가 있는 경우 count 증가
-          final currentCount = snapshot.data()?[serial] ?? 0;
-          transaction.update(addressDocRef, {serial: currentCount + 1});
+          final currentCount = snapshot.data()?['count'] ?? 0;
+          transaction.update(serialDocRef, {'count': currentCount + 1});
         }
         declareCheck = true;
       });
 
-      // address 값을 incrementUserCount로 전달
       await incrementUserCount(address);
 
     } catch (e) {
-      print('Error in documentFinder: $e');
       return null;
     }
   }
@@ -64,6 +60,15 @@ class DeclareScreen extends StatelessWidget {
 
 Future<void> incrementUserCount(String address) async {
   final collectionRef = FirebaseFirestore.instance.collection('lists');
+  if(address == '163 Seoulsiripdae-ro, Dongdaemun-gu, Seoul'){
+    address = '서울특별시 동대문구 서울시립대로 163 (전농동)';
+  }
+  else if(address == '22 Majang-ro, Jung-gu, Seoul'){
+    address= '서울특별시 중구 마장로 22 (신당동)';
+  }
+  else if (address == 'B300 Wangsimni-ro, Seongdong-gu, Seoul'){
+    address= '서울특별시 성동구 왕십리로 지하300 (행당동)';
+  }
 
   await FirebaseFirestore.instance.runTransaction((transaction) async {
     final querySnapshot = await collectionRef.where('address', isEqualTo: address).get();
@@ -111,7 +116,7 @@ Future<void> incrementUserCount(String address) async {
                   onTap: () async {
                     textToSpeech.stop();
 
-                    await documentFinder('serialA1-1');
+                    await documentFinder('serialC1-1');
 
                     Navigator.push(
                       // ignore: use_build_context_synchronously

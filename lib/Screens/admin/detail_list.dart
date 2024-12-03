@@ -1,110 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DetailList extends StatelessWidget {
-  final String? address;
+class DetailList extends StatefulWidget {
+  final String address;
 
-  const DetailList({required this.address, super.key});
+  const DetailList({super.key, required this.address});
 
-  Future<List<Map<String, dynamic>>> documentFinder(String? address) async {
-    if (address == null || address.isEmpty) {
-      return [];
-    }
+  @override
+  State<DetailList> createState() => _DetailListState();
+}
 
-    try {
-      // Fetch all documents from the Firestore collection
-      QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
-          .collection(address)
-          .get();
+class _DetailListState extends State<DetailList> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<Map<String, dynamic>> DetailList = [];
 
-      if (querySnapshot.docs.isEmpty) {
-        return [];
-      }
-
-      // Map each document into a list of data
-      return querySnapshot.docs.map((doc) => doc.data()).toList();
-    } catch (e) {
-      return [];
-    }
+  @override
+  void initState() {
+    super.initState();
+    fetchSerialData();
   }
 
-  // Extract serial numbers by floor for all documents
-  List<String> getSerialList(List<Map<String, dynamic>> documents) {
-    List<String> serialList = [];
+  Future<void> fetchSerialData() async {
+    try {
+      // Firestore에서 데이터 가져오기
+      QuerySnapshot querySnapshot = await _firestore.collection('serial').get();
 
-    for (var data in documents) {
-      data.forEach((key, value) {
-        if (key.startsWith('floor') && value is Map) {
-          value.forEach((serial, count) {
-            serialList.add(serial); // Add serial numbers to the list
+      List<Map<String, dynamic>> dataList = [];
+      for (var doc in querySnapshot.docs) {
+        var data = doc.data() as Map<String, dynamic>;
+
+        // location이 address와 일치하는지 확인
+        if (data['location'] == widget.address) {
+          dataList.add({
+            'floor': data['floor'],
+            'count': data['count'],
+            'room': data['room'],
           });
         }
-      });
-    }
+      }
 
-    return serialList;
+      setState(() {
+        DetailList = dataList;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back),
-          ),
-          title: Text('Detail Information'),
-        ),
-        body: Center(
-          child: FutureBuilder<List<Map<String, dynamic>>>(
-            future: documentFinder(address),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator(); // Show loading state
-              }
-
-              if (snapshot.hasError) {
-                return Text('Error occurred: ${snapshot.error}');
-              }
-
-              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Text('No data found.');
-              }
-
-              final documents = snapshot.data!;
-              final serialList = getSerialList(documents); // Extract serial numbers from all documents
-
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Address: $address', style: TextStyle(fontSize: 20)),
-                    SizedBox(height: 16),
-                    Text('Serial Numbers: ', style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 8),
-                    // Display serial numbers in a list
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: serialList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(serialList[index], style: TextStyle(fontSize: 16)),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
+    final List<bool> floorCheck = <bool>[false, false, false];
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('요구조자 상세 위치'),
       ),
+      body: DetailList.isEmpty
+          ? Center(child: Text('상세 정보가 존재하지 않습니다.',style: TextStyle(fontSize: 24,fontWeight: FontWeight.w500),))
+          : ListView.builder(
+              itemCount: DetailList.length,
+              itemBuilder: (context, index) {
+                final data = DetailList[index];
+                if(data['count'] == null || data['count'] == 0){
+                  return null;
+                }
+                if (data['floor'] == 1){
+                  if (!floorCheck[0]) {
+                    floorCheck[0] = true;
+                    return ListTile(
+                      title: Center(child: Text('${data['floor']}층',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),)),
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                    );
+                  }
+                  return ListTile(
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                  );
+                }
+                if (data['floor'] == 2){
+                  if (!floorCheck[1]) {
+                    floorCheck[1] = true;
+                    return ListTile(
+                      title: Center(child: Text('${data['floor']}층',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),)),
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                    );
+                  }
+                  return ListTile(
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                  );
+                }
+                if (data['floor'] == 3){
+                  if (!floorCheck[2]) {
+                    floorCheck[2] = true;
+                    return ListTile(
+                      title: Center(child: Text('${data['floor']}층',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w500),)),
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                    );
+                  }
+                  return ListTile(
+                      subtitle: Card(child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(child: Text('${data['room']}호실  |  요구조자: ${data['count']}명'),),
+                      )),
+                  );
+                }
+                return null;
+              },
+            ),
     );
   }
 }
