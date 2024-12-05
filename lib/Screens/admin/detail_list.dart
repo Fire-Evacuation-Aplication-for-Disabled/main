@@ -12,6 +12,7 @@ class DetailList extends StatefulWidget {
 
 class _DetailListState extends State<DetailList> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // ignore: non_constant_identifier_names
   List<Map<String, dynamic>> DetailList = [];
 
   @override
@@ -22,14 +23,12 @@ class _DetailListState extends State<DetailList> {
 
   Future<void> fetchSerialData() async {
     try {
-      // Firestore에서 데이터 가져오기
       QuerySnapshot querySnapshot = await _firestore.collection('serial').get();
 
       List<Map<String, dynamic>> dataList = [];
       for (var doc in querySnapshot.docs) {
         var data = doc.data() as Map<String, dynamic>;
 
-        // location이 address와 일치하는지 확인
         if (data['location'] == widget.address) {
           dataList.add({
             'floor': data['floor'],
@@ -42,9 +41,8 @@ class _DetailListState extends State<DetailList> {
       setState(() {
         DetailList = dataList;
       });
-    } catch (e) {
-      print('Error fetching data: $e');
-    }
+    // ignore: empty_catches
+    } catch (e) {}
   }
 
   @override

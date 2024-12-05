@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/screens/admin/detail_list.dart';
 
-// TO DO: 리스크 클릭 시 건물로 이동
-// admin은 후순위로
-
 class Item {
   final String title;
   final num subtitle; // subtitle의 자료형을 num으로 설정

@@ -27,7 +27,6 @@ class DeclareScreen extends StatelessWidget {
 
       final data = documentSnapshot.data();
       final String? address = data?['location']; // address 추출
-      final int? floor = data?['floor'];
 
       if (address == null) {
         return null;

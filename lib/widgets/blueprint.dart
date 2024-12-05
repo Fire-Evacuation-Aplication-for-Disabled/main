@@ -5,8 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_evacuation_assistance_for_disabled/widgets/manual.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 
-// TO DO: 사진 변경, 데이터 시리얼 추가
-
 bool checkedDeclare = false;
 
 class TrianglePainter extends CustomPainter {
@@ -149,7 +147,9 @@ class BlueprintScreen extends StatelessWidget {
             if (value == 'visual') {
               if (!checkedDeclare) {
                 checkedDeclare = true;
-                textToSpeech.speak('신고가 정상적으로 접수되었습니다.');
+                textToSpeech.speak('신고가 정상적으로 접수되었습니다.'
+                '화재 발생 층은 $fireLocation층이고, 현재 나의 위치는 $myLocation층입니다. '
+                '화재 대피 메뉴얼을 보려면 화면 중앙 최상단을 터치하십시오.');
               }
               textToSpeech.speak(
                 '화재 발생 층은 $fireLocation층이고, 현재 나의 위치는 $myLocation층입니다. '

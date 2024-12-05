@@ -4,9 +4,6 @@ import 'package:fire_evacuation_assistance_for_disabled/widgets/declare.dart';
 import 'package:fire_evacuation_assistance_for_disabled/components/dialog.dart';
 import 'package:flutter/material.dart';
 
-// TO DO: background 작동, 블루투스 연결
-// copilot 연결
-
 // 토글 버튼 텍스트
 const List<Widget> disableType = <Widget>[Text('시각'), Text('휠체어')];
 
@@ -16,13 +13,11 @@ class LoginService {
 
   Future<String> login(String inputId, String inputPw) async {
     try {
-      // Firestore 'users' 컬렉션에서 id가 inputId와 일치하는 문서를 조회
       var querySnapshot = await _firestore
           .collection('user')
           .where('id', isEqualTo: inputId)
           .get();
 
-      // 일치하는 문서가 있는지 확인
       if (querySnapshot.docs.isNotEmpty) {
         var userDoc = querySnapshot.docs.first;
 
@@ -68,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     // 공백이면 로그인 시도를 하지 않음
     if (id.isEmpty || pw.isEmpty) {
+      // ignore: use_build_context_synchronously
       return dialog(context, '로그인 실패', '로그인 정보를 입력해주세요!');
     }
 
