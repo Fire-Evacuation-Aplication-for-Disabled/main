@@ -4,12 +4,12 @@
 
 ## 개발 환경 (Environment)
 
--Flutter 3.24.5
--Framework • revision dec2ee5c1f
--Engine • revision a18df97ca5
--Tools • Dart 3.5.4 • DevTools 2.37.3
+- Flutter 3.24.5
+- Framework • revision dec2ee5c1f
+- Engine • revision a18df97ca5
+- Tools • Dart 3.5.4 • DevTools 2.37.3
 
--VS Code, Android Studio etc..
+- VS Code, Android Studio etc..
 
 ### 서울시립대학교 컴퓨터과학부 전공과목 '창의적공학설계' 제출 작품
 
