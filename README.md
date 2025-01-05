@@ -1,19 +1,13 @@
 # fire_evacuation_assistance_for_disabled
 
-A new Flutter project.
+장애인들을 위한 화재 대피 보조 어플리케이션
 
-## Getting Started
+## 개발환경
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Flutter 3.24.5
+Framework • revision dec2ee5c1f
+Engine • revision a18df97ca5
+Tools • Dart 3.5.4 • DevTools 2.37.3
 
 서울시립대학교 컴퓨터과학부 전공과목 '창의적공학설계' 제출 작품
 
