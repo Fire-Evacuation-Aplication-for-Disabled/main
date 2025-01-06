@@ -12,8 +12,6 @@
 - Framework • revision dec2ee5c1f
 - Engine • revision a18df97ca5
 - Tools • Dart 3.5.4 • DevTools 2.37.3
-<br/>
-
  - *VS Code, Android Studio etc..*
   
 <br/><br/>
