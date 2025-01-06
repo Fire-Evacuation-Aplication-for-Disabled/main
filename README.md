@@ -3,7 +3,7 @@
 
 # Fire Evacuation Assistance for Disabled
 
-장애인들을 위한 화재 대피 보조 어플리케이션입니다.
+ 장애인들을 위한 화재 대피 보조 어플리케이션입니다.
 <br/><br/>
 
 ## Environment (개발 환경)
@@ -14,7 +14,7 @@
 - Tools • Dart 3.5.4 • DevTools 2.37.3
 <br/>
 
- - *VS Code, Android Studio etc..*
+ - *Windows 10, IDE VS Code, Android Studio etc..*
  - Android Studio의 Medium Phone API 35 (mobile emulator)을 통해 개발
   
 <br/><br/>
