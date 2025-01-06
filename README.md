@@ -14,7 +14,7 @@
 - Tools • Dart 3.5.4 • DevTools 2.37.3
 <br/>
 
-  *VS Code, Android Studio etc..*
+ -*VS Code, Android Studio etc..*
   
 <br/><br/>
 
