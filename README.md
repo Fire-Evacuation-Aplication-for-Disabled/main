@@ -2,6 +2,8 @@
 
 장애인들을 위한 화재 대피 보조 어플리케이션입니다.
 
+#### 서울시립대학교 컴퓨터과학부 전공과목 '창의적공학설계' 프로젝트 ( 2024.09 ~ 2024.11 )   
+
 ## Environment (개발 환경)
 
 - Flutter 3.24.5
@@ -9,8 +11,6 @@
 - Engine • revision a18df97ca5
 - Tools • Dart 3.5.4 • DevTools 2.37.3   
 - *VS Code, Android Studio etc..*
-
-### 서울시립대학교 컴퓨터과학부 전공과목 '창의적공학설계' 프로젝트 ( 2024.09 ~ 2024.11 )   
 
 ## Userflow
 ![image](https://github.com/user-attachments/assets/e35aabf5-768d-4644-b8ce-10d0c6dfbbbd)
