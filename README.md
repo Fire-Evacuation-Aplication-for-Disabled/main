@@ -13,6 +13,7 @@
 - Engine • revision a18df97ca5
 - Tools • Dart 3.5.4 • DevTools 2.37.3
  - *VS Code, Android Studio etc..*
+ - ~~Android Studio의 Medium Phone API 35 (mobile emulator)을 통해 개발~~
   
 <br/><br/>
 
