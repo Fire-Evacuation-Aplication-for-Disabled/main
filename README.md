@@ -14,6 +14,9 @@
 - Tools • Dart 3.5.4 • DevTools 2.37.3
 <br/>
 
+- Firebase
+<br/>
+
  - *Windows 10, IDE VS Code, Android Studio etc..*
  - Android Studio의 Medium Phone API 35 (mobile emulator)을 통해 개발
   
@@ -49,6 +52,9 @@
 - **관리자 (소방대원):**
 1. 화재가 발생한 위치의 도로명주소 및 해당 도로명주소에서의 장애인 요구조자 수를 리스트로 반환
 2. 상세 정보를 열람할 시 해당 건물 각 층, 호실마다의 요구조자 수를 반환
+<br/>
+
+데이터는 Firebase와 연결하여 CRUD를 구현하였고, 음성은 flutter_tts 라이브러리를 사용하여 구현했다.
 <br/><br/>
 
 ## 개선해야 할 사항 및 결론
