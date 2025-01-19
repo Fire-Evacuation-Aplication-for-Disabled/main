@@ -56,6 +56,11 @@
 데이터는 Firebase와 연결하여 CRUD를 구현하였고, 음성은 flutter_tts 라이브러리를 사용하여 구현했다.
 <br/><br/>
 
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6134c0d-573d-4510-be06-12e666d98e53/48cdf916-b522-4e95-879a-43377780d163/image.png)
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6134c0d-573d-4510-be06-12e666d98e53/d5de0f63-9bbe-437d-ba65-53b76852269e/image.png)
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6134c0d-573d-4510-be06-12e666d98e53/b93715ff-4b4f-4711-b17c-bf9c609dce09/image.png)
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/d6134c0d-573d-4510-be06-12e666d98e53/01feea87-d763-4b8d-8834-1692826f4d91/image.png)
+
 ## 개선해야 할 사항 및 결론
 
   ~~화재 발생 층 및 현재 나의 위치는 블루투스 비콘의 RSSI 신호를 활용해 나의 위치를 파악하여 firebase를 통해 정보를 주고 받으려 했으나 실패~~   
