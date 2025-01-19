@@ -56,14 +56,6 @@
 데이터는 Firebase와 연결하여 CRUD를 구현하였고, 음성은 flutter_tts 라이브러리를 사용하여 구현했다.
 <br/><br/>
 
-![image](https://github.com/user-attachments/assets/0445587b-302d-414a-878d-02763c930997)
-![image](https://github.com/user-attachments/assets/dc8c0ea2-f174-4423-b4e4-f44d25b6e497)
-![image](https://github.com/user-attachments/assets/26706110-4367-429a-ad39-2cb8dbefb426)
-![image](https://github.com/user-attachments/assets/8e050685-d5ed-4988-8964-61af2249465b)
-![image](https://github.com/user-attachments/assets/1075c3f9-1897-4189-b841-eb655f642d16)
-
-
-
 
 ## 개선해야 할 사항 및 결론
 
@@ -92,3 +84,11 @@
 ### 개발자
 - *개발자: 임준용(리더), 최유현*
 - *작성자: 임준용*
+<br/>
+
+## 실행 사진
+![image](https://github.com/user-attachments/assets/0445587b-302d-414a-878d-02763c930997)
+![image](https://github.com/user-attachments/assets/dc8c0ea2-f174-4423-b4e4-f44d25b6e497)
+![image](https://github.com/user-attachments/assets/26706110-4367-429a-ad39-2cb8dbefb426)
+![image](https://github.com/user-attachments/assets/8e050685-d5ed-4988-8964-61af2249465b)
+![image](https://github.com/user-attachments/assets/1075c3f9-1897-4189-b841-eb655f642d16)
